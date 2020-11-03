@@ -1,26 +1,36 @@
 ﻿#include<stdio.h>
+#include<math.h>
 
-int main()
-
+int isPrime(int a)
 {
-	int a[101],n=10,summ=0;
-	double ave;
-	//scanf("%d",&n);
-	for(int i=0;i<n;i++) scanf("%d",&a[i]);
-	for(int i =0;i<n-1;i++)
+	if(a == 2) return 1;
+	for(int i=2;i<=sqrt(a);i++)
 	{
-		for(int j = 0;j<n-1-i;j++)
+		if(a%i==0)
 		{
-			if(a[j]>a[j+1])
-			{
-				a[j]=a[j]-a[j+1];
-				a[j+1]=a[j+1]+a[j];
-				a[j] = a[j+1] - a[j];
-			}
+			return 0;
+			break;
 		}
 	}
-	for(int i =1;i<n-1;i++) summ += a[i];
-	ave = (double)summ /(n-2);
-	printf("%.3f",ave);
+	return 1;
+}
+
+int main()
+{
+	int count = 0;
+	for(int i =4;i<=2000;i+=2)
+	{
+		for(int j = 2;j<= i/2 ;j++)
+		{
+			if(isPrime(j)&&isPrime(i-j))
+			{
+				printf("%4d=%4d+%4d",i,j,i-j);
+				count++;
+				break;
+			}
+		}
+		if(count % 4 == 0) printf("\n");
+		else printf(" ");
+	}
 	return 0;
 }
